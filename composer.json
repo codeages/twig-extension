@@ -1,0 +1,13 @@
+{
+    "name": "codeages/twig-extension",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Codeages\\TwigExtension\\": "src/"
+        }
+    },
+    "require": {
+        "twig/twig": "^1|^2"
+    }
+}
