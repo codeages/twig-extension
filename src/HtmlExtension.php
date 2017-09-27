@@ -20,6 +20,7 @@ class HtmlExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('script', array($this, 'script')),
             new \Twig_SimpleFunction('css', array($this, 'css')),
+            new \Twig_SimpleFunction('select_options', array($this, 'selectOptions'), $options),
         );
     }
 
@@ -53,8 +54,33 @@ class HtmlExtension extends \Twig_Extension
         }
     }
 
+    public function selectOptions($choices, $selected = null, $empty = null)
+    {
+        $html = '';
+
+        if (!is_null($empty)) {
+            if (is_array($empty)) {
+                foreach ($empty as $key => $value) {
+                    $html .= "<option value=\"{$key}\">{$value}</option>";
+                }
+            } else {
+                $html .= "<option value=\"\">{$empty}</option>";
+            }
+        }
+
+        foreach ($choices as $value => $name) {
+            if ($selected == $value) {
+                $html .= "<option value=\"{$value}\" selected=\"selected\">{$name}</option>";
+            } else {
+                $html .= "<option value=\"{$value}\">{$name}</option>";
+            }
+        }
+
+        return $html;
+    }
+
     public function getName()
     {
-        return 'codeages_plugin_html_extension';
+        return 'codeages_twig_extension';
     }
 }
